@@ -34,6 +34,8 @@
 			this.logoutButton = new System.Windows.Forms.Button();
 			this.taskTimeLabel = new System.Windows.Forms.Label();
 			this.infoLinkLabel = new System.Windows.Forms.LinkLabel();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.taskLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// loginButton
@@ -77,7 +79,7 @@
 			// infoLinkLabel
 			// 
 			this.infoLinkLabel.AutoSize = true;
-			this.infoLinkLabel.Location = new System.Drawing.Point(243, 101);
+			this.infoLinkLabel.Location = new System.Drawing.Point(246, 9);
 			this.infoLinkLabel.Name = "infoLinkLabel";
 			this.infoLinkLabel.Size = new System.Drawing.Size(24, 13);
 			this.infoLinkLabel.TabIndex = 3;
@@ -85,11 +87,29 @@
 			this.infoLinkLabel.Text = "info";
 			this.infoLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.infoLinkLabel_LinkClicked);
 			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(43, 125);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(192, 20);
+			this.textBox1.TabIndex = 4;
+			// 
+			// taskLabel
+			// 
+			this.taskLabel.AutoSize = true;
+			this.taskLabel.Location = new System.Drawing.Point(43, 106);
+			this.taskLabel.Name = "taskLabel";
+			this.taskLabel.Size = new System.Drawing.Size(34, 13);
+			this.taskLabel.TabIndex = 5;
+			this.taskLabel.Text = "Task:";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(271, 117);
+			this.ClientSize = new System.Drawing.Size(285, 169);
+			this.Controls.Add(this.taskLabel);
+			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.infoLinkLabel);
 			this.Controls.Add(this.taskTimeLabel);
 			this.Controls.Add(this.logoutButton);
@@ -110,6 +130,8 @@
 		private System.Windows.Forms.Button logoutButton;
 		private System.Windows.Forms.Label taskTimeLabel;
 		private System.Windows.Forms.LinkLabel infoLinkLabel;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Label taskLabel;
 	}
 }
 
