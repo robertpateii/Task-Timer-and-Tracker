@@ -20,17 +20,7 @@ namespace TaskTracker
 			InitializeComponent();
 			if (File.Exists(saveFileName) == true)
 			{
-				string savedTaskTime = File.ReadAllText(saveFileName);
-				if (!string.IsNullOrEmpty(savedTaskTime))
-				{
-					// Converts from the saved string to a TimeSpan object.
-					TimeSpan savedTaskTimeSpan = TimeSpan.Parse(savedTaskTime);
-					myTaskTimer = new TaskTimer(savedTaskTimeSpan);
-				}
-				else
-				{
-					myTaskTimer = new TaskTimer(TimeSpan.Zero);
-				}
+				changeTime(File.ReadAllText(saveFileName));
 			}
 			else
 			{
@@ -90,5 +80,51 @@ namespace TaskTracker
 			MessageBox.Show("This program saves your data everytime you Check In, Check Out, or Close.\r\n" + myWebsiteLink);
 		}
 
+		private void buttonClear_Click(object sender, EventArgs e)
+		{
+			myTaskTimer = new TaskTimer(TimeSpan.Zero);
+			updateMyTaskTime();
+		}
+
+		private void taskTimeLabel_Click(object sender, EventArgs e)
+		{
+			taskTimeLabel.Visible = false;
+			textBoxChangeTime.Visible = true;
+			
+			textBoxChangeTime.Text = myTaskTimer.TaskTime.ToString();
+
+
+		}
+
+		private void textBoxChangeTime_TextChanged(object sender, EventArgs e)
+		{
+			string savedTaskTime = textBoxChangeTime.Text;
+			changeTime(savedTaskTime);
+			buttonSave.Visible = true;
+		}
+
+		private void buttonSave_Click(object sender, EventArgs e)
+		{
+			buttonSave.Visible = false;
+			textBoxChangeTime.Visible = false;
+			taskTimeLabel.Visible = true;
+			updateMyTaskTime();
+		}
+
+		private void changeTime(object source)
+		{
+				string savedTaskTime = (string)source;
+				if (!string.IsNullOrEmpty(savedTaskTime))
+				{
+					// Converts from the saved string to a TimeSpan object.
+					TimeSpan savedTaskTimeSpan = TimeSpan.Parse(savedTaskTime);
+					myTaskTimer = new TaskTimer(savedTaskTimeSpan);
+				}
+				else
+				{
+					myTaskTimer = new TaskTimer(TimeSpan.Zero);
+				}
+
+		}
 	}
 }
