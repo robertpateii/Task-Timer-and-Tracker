@@ -12,12 +12,14 @@ namespace TaskTracker
 {
 	public partial class Form1 : Form
 	{
+		bool checkedIn;
 		TaskTimer myTaskTimer;
 		const string saveFileName = "TaskTimeData.txt";
 		const string myWebsiteLink = "http://robertpateii.com";
 		public Form1()
 		{
 			InitializeComponent();
+			checkedIn = false;
 			myTaskTimer = new TaskTimer(TimeSpan.Zero);
 			if (File.Exists(saveFileName) == true)
 			{
@@ -25,33 +27,38 @@ namespace TaskTracker
 			}
 			// 10 second interval. This is set in "Form1.Designer.cs" to a different value, but the value here takes precedence.
 			timer1.Interval = 10000;
-			logoutButton.Enabled = false;
 			updateMyTaskTime();
 		}
 
 		private void loginButton_Click(object sender, EventArgs e)
 		{
-			myTaskTimer.Start(); // Starts the core timer
-			timer1.Start(); // Starts the form's timer used to update the GUI
-			loginButton.Enabled = false;
-			logoutButton.Enabled = true;
-			updateMyTaskTime();
-			saveMyTaskTime();
+			if (checkedIn == false)
+			{
+				// Log in / Check in
+				myTaskTimer.Start(); // Starts the core timer
+				timer1.Start(); // Starts the form's timer used to update the GUI
+				updateMyTaskTime();
+				saveMyTaskTime();
+				checkedIn = true;
+				loginButton.Text = "Check Out";
+				this.Text = "Checked In - Task Timer"; 
+			}
+
+			else // Log out / check out
+			{
+				myTaskTimer.Pause();
+				timer1.Stop();
+				updateMyTaskTime();
+				saveMyTaskTime();
+				checkedIn = false;
+				loginButton.Text = "Check In";
+				this.Text = "Checked Out - Task Timer";
+			}
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
 			updateMyTaskTime();
-		}
-
-		private void logoutButton_Click(object sender, EventArgs e)
-		{
-			myTaskTimer.Pause();
-			timer1.Stop();
-			loginButton.Enabled = true;
-			logoutButton.Enabled = false;
-			updateMyTaskTime();
-			saveMyTaskTime();
 		}
 
 		private void updateMyTaskTime()
@@ -141,6 +148,13 @@ namespace TaskTracker
 			{
 				//
 			}
+		}
+
+		private void buttonResetBoth_Click(object sender, EventArgs e)
+		{
+			textBoxTask.Text = "";
+			myTaskTimer.TaskTime = TimeSpan.Zero;
+			updateMyTaskTime();
 		}
 	}
 }
