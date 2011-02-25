@@ -18,13 +18,10 @@ namespace TaskTracker
 		public Form1()
 		{
 			InitializeComponent();
+			myTaskTimer = new TaskTimer(TimeSpan.Zero);
 			if (File.Exists(saveFileName) == true)
 			{
 				changeTime(File.ReadAllText(saveFileName));
-			}
-			else
-			{
-				myTaskTimer = new TaskTimer(TimeSpan.Zero);
 			}
 			// 10 second interval. This is set in "Form1.Designer.cs" to a different value, but the value here takes precedence.
 			timer1.Interval = 10000;
@@ -82,49 +79,68 @@ namespace TaskTracker
 
 		private void buttonClear_Click(object sender, EventArgs e)
 		{
-			myTaskTimer = new TaskTimer(TimeSpan.Zero);
+			myTaskTimer.TaskTime = TimeSpan.Zero;
 			updateMyTaskTime();
 		}
 
 		private void taskTimeLabel_Click(object sender, EventArgs e)
 		{
+			// Hide the normal timer display label
 			taskTimeLabel.Visible = false;
+
+			// Show the editable text box and save button
 			textBoxChangeTime.Visible = true;
-			
-			textBoxChangeTime.Text = myTaskTimer.TaskTime.ToString();
-
-
-		}
-
-		private void textBoxChangeTime_TextChanged(object sender, EventArgs e)
-		{
-			string savedTaskTime = textBoxChangeTime.Text;
-			changeTime(savedTaskTime);
 			buttonSave.Visible = true;
+
+			// Set the time displayed in the text box to the current time counted
+			textBoxChangeTime.Text = myTaskTimer.TaskTime.ToString();
+			
+
+
 		}
 
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
+			// Take the text with each change and attempt to change the time with it.
+			string savedTaskTime = textBoxChangeTime.Text;
+			changeTime(savedTaskTime);
+			
+			// Hide the save button and editable text box. Return the normal timer label.
 			buttonSave.Visible = false;
 			textBoxChangeTime.Visible = false;
 			taskTimeLabel.Visible = true;
+
+			// Update the timer label w/ latest time.
 			updateMyTaskTime();
 		}
 
 		private void changeTime(object source)
 		{
-				string savedTaskTime = (string)source;
+			string savedTaskTime = (string)source;
+			// Ensure the savedTaskTime string is in an acceptable format for conversion, not just that it exists.
+			try
+			{
 				if (!string.IsNullOrEmpty(savedTaskTime))
 				{
 					// Converts from the saved string to a TimeSpan object.
 					TimeSpan savedTaskTimeSpan = TimeSpan.Parse(savedTaskTime);
-					myTaskTimer = new TaskTimer(savedTaskTimeSpan);
+					myTaskTimer.TaskTime = savedTaskTimeSpan;
 				}
 				else
 				{
-					myTaskTimer = new TaskTimer(TimeSpan.Zero);
+					myTaskTimer.TaskTime = TimeSpan.Zero;
 				}
+			}
 
+			catch (Exception)
+			{
+				MessageBox.Show("The time you tried to save isn't in the right format, and so was not saved.");
+			}
+
+			finally
+			{
+				//
+			}
 		}
 	}
 }

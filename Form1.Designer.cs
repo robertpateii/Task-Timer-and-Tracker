@@ -135,7 +135,6 @@
 			this.textBoxChangeTime.Size = new System.Drawing.Size(153, 32);
 			this.textBoxChangeTime.TabIndex = 8;
 			this.textBoxChangeTime.Visible = false;
-			this.textBoxChangeTime.TextChanged += new System.EventHandler(this.textBoxChangeTime_TextChanged);
 			// 
 			// buttonSave
 			// 

@@ -11,7 +11,15 @@ namespace TaskTracker
 		// Properties
 		Timer myTimer;
 		TimeSpan taskTime;
-		public TimeSpan TaskTime { get { return taskTime; } }
+		public TimeSpan TaskTime 
+		{ 
+			get { return taskTime; } 
+
+			set {
+				// should I be running a try/catch here? or on the form?
+				taskTime = value;
+				} 
+		}
 
 		// Constructor
 		// the play time will only change from the outside if you create a new instance of play timer.
