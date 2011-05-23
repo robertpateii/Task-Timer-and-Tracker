@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TaskTracker
 {
@@ -14,16 +15,37 @@ namespace TaskTracker
 	{
 		bool checkedIn;
 		TaskTimer myTaskTimer;
-		const string saveFileName = "TaskTimeData.txt";
+		const string saveTimeFile = "TaskTime.dat";
+		const string saveTaskFile = "TaskName.dat";
 		const string myWebsiteLink = "http://robertpateii.com";
 		public Form1()
 		{
 			InitializeComponent();
 			checkedIn = false;
 			myTaskTimer = new TaskTimer(TimeSpan.Zero);
-			if (File.Exists(saveFileName) == true)
+			if (File.Exists(saveTimeFile) == true)
 			{
-				changeTime(File.ReadAllText(saveFileName));
+				try
+				{
+					using (Stream inputstream = File.OpenRead(saveTimeFile))
+					{
+						TimeSpan savedTime;
+						BinaryFormatter myFormatter = new BinaryFormatter();
+						savedTime = (TimeSpan)myFormatter.Deserialize(inputstream);
+						changeTime(savedTime.ToString());
+					}
+					using (Stream inputstream = File.OpenRead(saveTaskFile))
+					{
+						BinaryFormatter myFormatter = new BinaryFormatter();
+						string savedTask = (string)myFormatter.Deserialize(inputstream);
+						textBoxTask.Text = savedTask;						
+					}
+				}
+
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+				}
 			}
 			// 10 second interval. This is set in "Form1.Designer.cs" to a different value, but the value here takes precedence.
 			timer1.Interval = 10000;
@@ -71,7 +93,16 @@ namespace TaskTracker
 
 		private void saveMyTaskTime()
 		{
-			File.WriteAllText(saveFileName, myTaskTimer.TaskTime.ToString());
+			using (Stream output = File.Create(saveTimeFile))
+			{
+				BinaryFormatter formatter = new BinaryFormatter();
+				formatter.Serialize(output, myTaskTimer.TaskTime);
+			}
+			using (Stream output = File.Create(saveTaskFile))
+			{
+				BinaryFormatter formatter = new BinaryFormatter();
+				formatter.Serialize(output, textBoxTask.Text);
+			}
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -139,14 +170,9 @@ namespace TaskTracker
 				}
 			}
 
-			catch (Exception)
+			catch (Exception ex)
 			{
-				MessageBox.Show("The time you tried to save isn't in the right format, and so was not saved.");
-			}
-
-			finally
-			{
-				//
+				MessageBox.Show("The time you tried to save isn't in the right format, and so was not saved.\r\n" + ex.Message);
 			}
 		}
 

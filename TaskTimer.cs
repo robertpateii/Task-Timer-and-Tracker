@@ -6,6 +6,7 @@ using System.Timers;
 
 namespace TaskTracker
 {
+	[Serializable]
 	public class TaskTimer
 	{
 		// Properties
