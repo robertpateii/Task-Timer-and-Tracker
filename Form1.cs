@@ -15,12 +15,13 @@ namespace TaskTracker
 	{
 		bool checkedIn;
 		TaskTimer myTaskTimer;
-		const string saveTimeFile = "TaskTime.dat";
-		const string saveTaskFile = "TaskName.dat";
+		const string saveTimeFile = "TaskTracker.dat";
 		const string myWebsiteLink = "http://robertpateii.com";
+		List<Task> myTasks;
 		public Form1()
 		{
 			InitializeComponent();
+			myTasks = new List<Task> { };
 			checkedIn = false;
 			myTaskTimer = new TaskTimer(TimeSpan.Zero);
 			if (File.Exists(saveTimeFile) == true)
@@ -29,16 +30,11 @@ namespace TaskTracker
 				{
 					using (Stream inputstream = File.OpenRead(saveTimeFile))
 					{
-						TimeSpan savedTime;
+						Task savedTask;
 						BinaryFormatter myFormatter = new BinaryFormatter();
-						savedTime = (TimeSpan)myFormatter.Deserialize(inputstream);
-						changeTime(savedTime.ToString());
-					}
-					using (Stream inputstream = File.OpenRead(saveTaskFile))
-					{
-						BinaryFormatter myFormatter = new BinaryFormatter();
-						string savedTask = (string)myFormatter.Deserialize(inputstream);
-						textBoxTask.Text = savedTask;						
+						savedTask = (Task)myFormatter.Deserialize(inputstream);
+						changeTime(savedTask.Time.ToString());
+						textBoxTask.Text = savedTask.Name;						
 					}
 				}
 
@@ -93,15 +89,13 @@ namespace TaskTracker
 
 		private void saveMyTaskTime()
 		{
+			Task myTask = new Task();
+			myTask.Name = textBoxTask.Text;
+			myTask.Time = myTaskTimer.TaskTime;
 			using (Stream output = File.Create(saveTimeFile))
 			{
 				BinaryFormatter formatter = new BinaryFormatter();
-				formatter.Serialize(output, myTaskTimer.TaskTime);
-			}
-			using (Stream output = File.Create(saveTaskFile))
-			{
-				BinaryFormatter formatter = new BinaryFormatter();
-				formatter.Serialize(output, textBoxTask.Text);
+				formatter.Serialize(output, myTask);
 			}
 		}
 
