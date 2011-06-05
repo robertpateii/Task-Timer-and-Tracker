@@ -173,7 +173,7 @@ namespace TaskTracker
 			// Save the time to the task object
 			for (int i = 0; i < myTimeLabels.Count; i++)
 			{
-				// throw new NotImplementedException();
+				throw new NotImplementedException();
 			}
 
 
