@@ -12,23 +12,44 @@ namespace TaskTracker
 		public string Name { get { return name; } set { name = value; } }
 		
 		private TimeSpan time;
-		public TimeSpan Time { get { return time; } set { time = value; } }
+		public TimeSpan Time 
+		{ 
+			get 
+			{
+				return time;
+			} 
+			set 
+			{
+				time = value; 
+			} 
+		}
 
-		private bool selected;
-		public bool Selected { get { return selected; } set { selected = value; } }
+		private bool isChecked;
+		public bool IsChecked { get { return isChecked; } set { isChecked = value; } }
+
+		public string TimeString
+		{
+			get
+			{
+
+				string timeString = time.Hours + ":" + time.Minutes;
+				return timeString;
+
+			}
+		}
 
 		public Task(string name, TimeSpan time, bool selected)
 		{
 			this.name = name;
 			this.time = time;
-			this.selected = selected;
+			this.isChecked = selected;
 		}
 
 		public Task()
 		{
 			this.name = "";
 			this.time = TimeSpan.Zero;
-			this.selected = false;
+			this.isChecked = false;
 		}
 	}
 }

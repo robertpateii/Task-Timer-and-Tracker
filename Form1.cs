@@ -17,11 +17,9 @@ namespace TaskTracker
 		TaskTimer myTaskTimer;
 		const string saveTimeFile = "TaskTracker.dat";
 		const string myWebsiteLink = "http://robertpateii.com";
-		List<Task> myTasks;
 		public Form1()
 		{
 			InitializeComponent();
-			myTasks = new List<Task> { };
 			checkedIn = false;
 			myTaskTimer = new TaskTimer(TimeSpan.Zero);
 			if (File.Exists(saveTimeFile) == true)
