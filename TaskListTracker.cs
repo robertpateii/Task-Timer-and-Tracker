@@ -72,7 +72,7 @@ namespace TaskTracker
 
 		void aTimeLabel_Click(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			MessageBox.Show("editing times not implemented yet.");
 		}
 
 		private void addradioButtons()
@@ -170,12 +170,7 @@ namespace TaskTracker
 
 			// See aRadio_Click for when the IsChecked property gets saved to the task object
 
-			// Save the time to the task object
-			for (int i = 0; i < myTimeLabels.Count; i++)
-			{
-				throw new NotImplementedException();
-			}
-
+			// See timer1_Tick - it adds the new time directly to the task
 
 			// Save the task list to a file
 			using (Stream output = File.Create(saveTimeFile))
@@ -188,6 +183,37 @@ namespace TaskTracker
 		private void TaskListTracker_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveTaskList();
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			// Take the tick interval and add it to the time of the checked task
+			foreach (Task aTask in myTasks)
+			{
+				if (aTask.IsChecked)
+				{
+					// Create a time span that equals the interval
+					TimeSpan tickTime = new TimeSpan((long)timer1.Interval * 10000);
+
+					// Add that time span to the task
+					aTask.Time = aTask.Time.Add(tickTime);
+
+					updateTimes(aTask);
+				}
+			}
+		}
+
+		// Update the time of the checked task or all the tasks if you have to. 
+		// It will run whenever the timer tick updates a task's time.
+		private void updateTimes(Task aTask)
+		{
+			foreach (Label aTimeLabel in myTimeLabels)
+			{
+				if (myTasks.IndexOf(aTask) == myTimeLabels.IndexOf(aTimeLabel))
+				{
+					aTimeLabel.Text = aTask.TimeString;		
+				}
+			}
 		}
 
 	}
