@@ -31,22 +31,7 @@ namespace TaskTracker
 			// Create the stuff on the form w/ the data in the tasks
 			foreach (Task aTask in myTasks)
 			{
-				// Create the textBox and set it's text to the task's name.
-				TextBox aTextBox = new TextBox();
-				aTextBox.Text = aTask.Name;
-				myTextBoxes.Add(aTextBox);
-
-				// Create the radio button and set it to the checked status
-				RadioButton aRadio = new RadioButton();
-				aRadio.Checked = aTask.IsChecked;
-				aRadio.Click += new EventHandler(aRadio_Click);
-				myRadioButtons.Add(aRadio);
-
-				// Create the time label and set it to the task's time
-				Label aTimeLabel = new Label();
-				aTimeLabel.Text = aTask.TimeString;
-				aTimeLabel.Click += new EventHandler(aTimeLabel_Click);
-				myTimeLabels.Add(aTimeLabel);
+				createTaskControls(aTask);
 			}
 
 
@@ -54,6 +39,26 @@ namespace TaskTracker
 			addTextBoxes();
 			addradioButtons();
 			addtimeLabels();
+		}
+
+		private void createTaskControls(Task aTask)
+		{
+			// Create the textBox and set it's text to the task's name.
+			TextBox aTextBox = new TextBox();
+			aTextBox.Text = aTask.Name;
+			myTextBoxes.Add(aTextBox);
+
+			// Create the radio button and set it to the checked status
+			RadioButton aRadio = new RadioButton();
+			aRadio.Checked = aTask.IsChecked;
+			aRadio.Click += new EventHandler(aRadio_Click);
+			myRadioButtons.Add(aRadio);
+
+			// Create the time label and set it to the task's time
+			Label aTimeLabel = new Label();
+			aTimeLabel.Text = aTask.TimeString;
+			aTimeLabel.Click += new EventHandler(aTimeLabel_Click);
+			myTimeLabels.Add(aTimeLabel);
 		}
 
 		// Sets all the other tasks IsChecked Property to false
@@ -86,7 +91,7 @@ namespace TaskTracker
 			{
 				aButton.Location = new Point(x, y);
 				y += 25;
-				this.Controls.Add(aButton);
+				groupBoxTasks.Controls.Add(aButton);
 			}
 		}
 
@@ -101,7 +106,7 @@ namespace TaskTracker
 			{
 				aLabel.Location = new Point(x, y);
 				y += 25;
-				this.Controls.Add(aLabel);
+				groupBoxTasks.Controls.Add(aLabel);
 			}
 		}
 
@@ -144,7 +149,7 @@ namespace TaskTracker
 				aTextBox.Location = new Point(x, y);
 				// Increase the y of the next text box
 				y += 25;
-				this.Controls.Add(aTextBox);
+				groupBoxTasks.Controls.Add(aTextBox);
 			}
 		}
 
@@ -213,6 +218,38 @@ namespace TaskTracker
 				{
 					aTimeLabel.Text = aTask.TimeString;		
 				}
+			}
+		}
+
+		private void buttonAddTask_Click(object sender, EventArgs e)
+		{
+			SaveTaskList(); // I'm only really saving here so that the text in the task fields is saved to the task object.
+			// Add a blank task to the array
+			Task newTask = new Task();
+			myTasks.Add(newTask);
+			// wipe out all the buttons and text and task stuff on the form
+			groupBoxTasks.Controls.Clear();
+			// Create the buttons and stuff for the new task (the other stuff still exists off-form)
+			createTaskControls(newTask);
+			// Add the whole lot of controls back to the form
+			addradioButtons();
+			addTextBoxes();
+			addtimeLabels();
+		}
+
+		private void buttonCheckOut_Click(object sender, EventArgs e)
+		{
+			foreach (Task aTask in myTasks)
+			{
+				if (aTask.IsChecked)
+				{
+					aTask.IsChecked = false;
+				}
+			}
+
+			foreach (RadioButton aRadioButton in myRadioButtons)
+			{
+				aRadioButton.Checked = false;
 			}
 		}
 
