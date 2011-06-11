@@ -18,6 +18,7 @@ namespace TaskTracker
 		List<TextBox> myTextBoxes = new List<TextBox> { };
 		List<RadioButton> myRadioButtons = new List<RadioButton> { };
 		List<Label> myTimeLabels = new List<Label> { };
+		List<TextBox> myChangeTimeBoxes = new List<TextBox> { };
 
 		public TaskListTracker()
 		{
@@ -37,8 +38,9 @@ namespace TaskTracker
 
 			// Add the stuff to the form
 			addTextBoxes();
-			addradioButtons();
-			addtimeLabels();
+			addRadioButtons();
+			addTimeLabels();
+			addChangeTimeBoxes();
 		}
 
 		private void createTaskControls(Task aTask)
@@ -59,6 +61,11 @@ namespace TaskTracker
 			aTimeLabel.Text = aTask.TimeString;
 			aTimeLabel.Click += new EventHandler(aTimeLabel_Click);
 			myTimeLabels.Add(aTimeLabel);
+
+			// Create the change time text box and set its properties
+			TextBox changeTimeBox = new TextBox();
+			changeTimeBox.Width = 25;
+			myChangeTimeBoxes.Add(changeTimeBox);
 		}
 
 		// Sets all the other tasks IsChecked Property to false
@@ -77,10 +84,34 @@ namespace TaskTracker
 
 		void aTimeLabel_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("editing times not implemented yet.");
+			// if a change time text box is already visible, do nothing. 
+			if (buttonSave.Visible == true)
+			{
+				MessageBox.Show("You can only edit one time at a time.");
+			}
+
+			else
+			{
+
+				// Hide the time label
+				Label thisLabel = (Label)sender;
+				thisLabel.Hide();
+				// get the index of the sender and unhide the changeTimeBox of the same index. 
+				int senderIndex = myTimeLabels.IndexOf(thisLabel);
+				myChangeTimeBoxes[senderIndex].Show();
+				myChangeTimeBoxes[senderIndex].Focus();
+				// Also show the save button. just have 1 save button not per task.
+				buttonSave.Show();
+				buttonAddTask.Enabled = false;
+				buttonCheckOut.Enabled = false;
+
+				// Note that the user is still checked in while the change time box is open.
+			}
+			
+
 		}
 
-		private void addradioButtons()
+		private void addRadioButtons()
 		{
 			// Set Starting position
 			int x = 200;
@@ -95,10 +126,10 @@ namespace TaskTracker
 			}
 		}
 
-		private void addtimeLabels()
+		private void addTimeLabels()
 		{
 			// Starting Pos
-			int x = 300;
+			int x = 310;
 			int y = 15;
 
 			// Add all the labels
@@ -107,6 +138,22 @@ namespace TaskTracker
 				aLabel.Location = new Point(x, y);
 				y += 25;
 				groupBoxTasks.Controls.Add(aLabel);
+			}
+		}
+
+		private void addChangeTimeBoxes()
+		{
+			// Starting Pos same as time labels
+			int x = 310;
+			int y = 15;
+
+			// Add all the text boxes but hide them
+			foreach (TextBox aTextBox in myChangeTimeBoxes)
+			{
+				aTextBox.Location = new Point(x, y);
+				y += 25;
+				groupBoxTasks.Controls.Add(aTextBox);
+				aTextBox.Hide();
 			}
 		}
 
@@ -212,13 +259,8 @@ namespace TaskTracker
 		// It will run whenever the timer tick updates a task's time.
 		private void updateTimes(Task aTask)
 		{
-			foreach (Label aTimeLabel in myTimeLabels)
-			{
-				if (myTasks.IndexOf(aTask) == myTimeLabels.IndexOf(aTimeLabel))
-				{
-					aTimeLabel.Text = aTask.TimeString;		
-				}
-			}
+			int taskIndex = myTasks.IndexOf(aTask);
+			myTimeLabels[taskIndex].Text = aTask.TimeString;
 		}
 
 		private void buttonAddTask_Click(object sender, EventArgs e)
@@ -232,9 +274,9 @@ namespace TaskTracker
 			// Create the buttons and stuff for the new task (the other stuff still exists off-form)
 			createTaskControls(newTask);
 			// Add the whole lot of controls back to the form
-			addradioButtons();
+			addRadioButtons();
 			addTextBoxes();
-			addtimeLabels();
+			addTimeLabels();
 		}
 
 		private void buttonCheckOut_Click(object sender, EventArgs e)
@@ -251,6 +293,47 @@ namespace TaskTracker
 			{
 				aRadioButton.Checked = false;
 			}
+		}
+
+		private void buttonSave_Click(object sender, EventArgs e)
+		{
+			foreach (TextBox aTimeBox in myChangeTimeBoxes)
+			{
+
+				if (aTimeBox.Visible == true)
+				{
+					int changeTimeValueInMinutes = 0;
+					// Convert the change time value into a time span.
+					try
+					{
+						changeTimeValueInMinutes = int.Parse(aTimeBox.Text);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(ex.Message);
+					}
+
+					TimeSpan changeTimeTimeSpan = new TimeSpan(0, changeTimeValueInMinutes, 0);
+
+					// Take the index of the change time box and use it to get the index of the corresponding items
+					// I feel like i've written this too many times i need to make a function.
+					int taskIndex = myChangeTimeBoxes.IndexOf(aTimeBox);
+
+					// add the minutes in the time box to the task itself. then run the update to the form's time label.
+					myTasks[taskIndex].Time = myTasks[taskIndex].Time.Add(changeTimeTimeSpan);
+					updateTimes(myTasks[taskIndex]);
+					
+					// Put the time label and change time box back to normal.
+					aTimeBox.Hide();
+					myTimeLabels[taskIndex].Show();
+
+
+				}
+			}
+			// put all the buttons back to normal
+			buttonAddTask.Enabled = true;
+			buttonCheckOut.Enabled = true;
+			buttonSave.Hide();
 		}
 
 	}

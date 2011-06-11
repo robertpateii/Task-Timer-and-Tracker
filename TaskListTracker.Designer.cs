@@ -33,6 +33,8 @@
 			this.buttonAddTask = new System.Windows.Forms.Button();
 			this.groupBoxTasks = new System.Windows.Forms.GroupBox();
 			this.buttonCheckOut = new System.Windows.Forms.Button();
+			this.buttonSave = new System.Windows.Forms.Button();
+			this.changeTimeLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// timer1
@@ -43,9 +45,9 @@
 			// 
 			// buttonAddTask
 			// 
-			this.buttonAddTask.Location = new System.Drawing.Point(306, 316);
+			this.buttonAddTask.Location = new System.Drawing.Point(13, 316);
 			this.buttonAddTask.Name = "buttonAddTask";
-			this.buttonAddTask.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddTask.Size = new System.Drawing.Size(112, 38);
 			this.buttonAddTask.TabIndex = 0;
 			this.buttonAddTask.Text = "MOAR";
 			this.buttonAddTask.UseVisualStyleBackColor = true;
@@ -62,19 +64,41 @@
 			// 
 			// buttonCheckOut
 			// 
-			this.buttonCheckOut.Location = new System.Drawing.Point(157, 316);
+			this.buttonCheckOut.Location = new System.Drawing.Point(153, 316);
 			this.buttonCheckOut.Name = "buttonCheckOut";
-			this.buttonCheckOut.Size = new System.Drawing.Size(75, 23);
+			this.buttonCheckOut.Size = new System.Drawing.Size(105, 38);
 			this.buttonCheckOut.TabIndex = 2;
 			this.buttonCheckOut.Text = "Check Out";
 			this.buttonCheckOut.UseVisualStyleBackColor = true;
 			this.buttonCheckOut.Click += new System.EventHandler(this.buttonCheckOut_Click);
 			// 
+			// buttonSave
+			// 
+			this.buttonSave.Location = new System.Drawing.Point(287, 316);
+			this.buttonSave.Name = "buttonSave";
+			this.buttonSave.Size = new System.Drawing.Size(94, 38);
+			this.buttonSave.TabIndex = 3;
+			this.buttonSave.Text = "Save";
+			this.buttonSave.UseVisualStyleBackColor = true;
+			this.buttonSave.Visible = false;
+			this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+			// 
+			// changeTimeLabel
+			// 
+			this.changeTimeLabel.AutoSize = true;
+			this.changeTimeLabel.Location = new System.Drawing.Point(16, 357);
+			this.changeTimeLabel.Name = "changeTimeLabel";
+			this.changeTimeLabel.Size = new System.Drawing.Size(374, 13);
+			this.changeTimeLabel.TabIndex = 4;
+			this.changeTimeLabel.Text = "Click the time to change it by adding a positive or negative number of minutes.";
+			// 
 			// TaskListTracker
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(402, 343);
+			this.ClientSize = new System.Drawing.Size(401, 382);
+			this.Controls.Add(this.changeTimeLabel);
+			this.Controls.Add(this.buttonSave);
 			this.Controls.Add(this.buttonCheckOut);
 			this.Controls.Add(this.buttonAddTask);
 			this.Controls.Add(this.groupBoxTasks);
@@ -82,6 +106,7 @@
 			this.Text = "TaskListTracker";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TaskListTracker_FormClosing);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -91,6 +116,8 @@
 		private System.Windows.Forms.Button buttonAddTask;
 		private System.Windows.Forms.GroupBox groupBoxTasks;
 		private System.Windows.Forms.Button buttonCheckOut;
+		private System.Windows.Forms.Button buttonSave;
+		private System.Windows.Forms.Label changeTimeLabel;
 
 	}
 }
