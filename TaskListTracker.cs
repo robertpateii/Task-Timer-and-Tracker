@@ -52,6 +52,7 @@ namespace TaskTracker
 			aRadio.Checked = aTask.IsChecked;
 			aRadio.Click += new EventHandler(aRadio_Click);
 			myRadioButtons.Add(aRadio);
+			aRadio.Width = 25;
 
 			// Create the time label and set it to the task's time
 			Label aTimeLabel = new Label();
@@ -112,7 +113,7 @@ namespace TaskTracker
 		private void addRadioButtons()
 		{
 			// Set Starting position
-			int x = 200;
+			int x = 125;
 			int y = 15;
 
 			// Add all the radio buttons
@@ -127,7 +128,7 @@ namespace TaskTracker
 		private void addTimeLabels()
 		{
 			// Starting Pos
-			int x = 310;
+			int x = 190;
 			int y = 15;
 
 			// Add all the labels
@@ -142,7 +143,7 @@ namespace TaskTracker
 		private void addChangeTimeBoxes()
 		{
 			// Starting Pos same as time labels
-			int x = 310;
+			int x = 190;
 			int y = 15;
 
 			// Add all the text boxes but hide them
