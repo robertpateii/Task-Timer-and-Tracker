@@ -37,10 +37,7 @@ namespace TaskTracker
 
 
 			// Add the stuff to the form
-			addTextBoxes();
-			addRadioButtons();
-			addTimeLabels();
-			addChangeTimeBoxes();
+			redrawForm();
 		}
 
 		private void createTaskControls(Task aTask)
@@ -100,8 +97,9 @@ namespace TaskTracker
 				int senderIndex = myTimeLabels.IndexOf(thisLabel);
 				myChangeTimeBoxes[senderIndex].Show();
 				myChangeTimeBoxes[senderIndex].Focus();
-				// Also show the save button. just have 1 save button not per task.
+				// Also show the save & delete button. just have 1 save button not per task.
 				buttonSave.Show();
+				buttonDelete.Show();
 				buttonAddTask.Enabled = false;
 				buttonCheckOut.Enabled = false;
 
@@ -203,10 +201,9 @@ namespace TaskTracker
 		private void createBlankTasks()
 		{
 			// Create some blank tasks anyway
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 2; i++)
 			{
-
-				Task aTask = new Task(i.ToString(), TimeSpan.Zero, false);
+				Task aTask = new Task("", TimeSpan.Zero, false);
 				myTasks.Add(aTask);
 			}
 		}
@@ -274,9 +271,7 @@ namespace TaskTracker
 			// Create the buttons and stuff for the new task (the other stuff still exists off-form)
 			createTaskControls(newTask);
 			// Add the whole lot of controls back to the form
-			addRadioButtons();
-			addTextBoxes();
-			addTimeLabels();
+			redrawForm();
 		}
 
 		private void buttonCheckOut_Click(object sender, EventArgs e)
@@ -334,6 +329,48 @@ namespace TaskTracker
 			buttonAddTask.Enabled = true;
 			buttonCheckOut.Enabled = true;
 			buttonSave.Hide();
+			buttonDelete.Hide();
+		}
+
+		private void buttonDelete_Click(object sender, EventArgs e)
+		{
+			// setting this to 99 since it's a value unlikely to already match a task
+			int taskIndex = 99;
+			
+			// Find what index the task is at
+			foreach (TextBox aTimeBox in myChangeTimeBoxes)
+			{
+				if (aTimeBox.Visible == true)
+				{
+					taskIndex = myChangeTimeBoxes.IndexOf(aTimeBox);
+				}
+			}
+
+			// Delete the task and corresponding buttons
+			myChangeTimeBoxes.RemoveAt(taskIndex);
+			myRadioButtons.RemoveAt(taskIndex);
+			myTasks.RemoveAt(taskIndex);
+			myTextBoxes.RemoveAt(taskIndex);
+			myTimeLabels.RemoveAt(taskIndex);
+
+			// Redraw the form
+			redrawForm();
+
+
+			// Put buttons back to normal.
+			buttonAddTask.Enabled = true;
+			buttonCheckOut.Enabled = true;
+			buttonSave.Hide();
+			buttonDelete.Hide();
+		}
+
+		private void redrawForm()
+		{
+			groupBoxTasks.Controls.Clear();
+			addTextBoxes();
+			addRadioButtons();
+			addTimeLabels();
+			addChangeTimeBoxes();
 		}
 
 	}

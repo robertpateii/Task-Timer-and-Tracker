@@ -35,6 +35,7 @@
 			this.buttonCheckOut = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.changeTimeLabel = new System.Windows.Forms.Label();
+			this.buttonDelete = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// timer1
@@ -64,7 +65,7 @@
 			// 
 			// buttonCheckOut
 			// 
-			this.buttonCheckOut.Location = new System.Drawing.Point(153, 316);
+			this.buttonCheckOut.Location = new System.Drawing.Point(130, 316);
 			this.buttonCheckOut.Name = "buttonCheckOut";
 			this.buttonCheckOut.Size = new System.Drawing.Size(105, 38);
 			this.buttonCheckOut.TabIndex = 2;
@@ -74,9 +75,9 @@
 			// 
 			// buttonSave
 			// 
-			this.buttonSave.Location = new System.Drawing.Point(287, 316);
+			this.buttonSave.Location = new System.Drawing.Point(304, 316);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(94, 38);
+			this.buttonSave.Size = new System.Drawing.Size(77, 38);
 			this.buttonSave.TabIndex = 3;
 			this.buttonSave.Text = "Save";
 			this.buttonSave.UseVisualStyleBackColor = true;
@@ -86,17 +87,30 @@
 			// changeTimeLabel
 			// 
 			this.changeTimeLabel.AutoSize = true;
-			this.changeTimeLabel.Location = new System.Drawing.Point(16, 357);
+			this.changeTimeLabel.Location = new System.Drawing.Point(1, 360);
 			this.changeTimeLabel.Name = "changeTimeLabel";
-			this.changeTimeLabel.Size = new System.Drawing.Size(374, 13);
+			this.changeTimeLabel.Size = new System.Drawing.Size(401, 13);
 			this.changeTimeLabel.TabIndex = 4;
-			this.changeTimeLabel.Text = "Click the time to change it by adding a positive or negative number of minutes.";
+			this.changeTimeLabel.Text = "Click the time to make changes. Accepts positive and negative amounts of minutes." +
+    "";
+			// 
+			// buttonDelete
+			// 
+			this.buttonDelete.Location = new System.Drawing.Point(241, 316);
+			this.buttonDelete.Name = "buttonDelete";
+			this.buttonDelete.Size = new System.Drawing.Size(57, 38);
+			this.buttonDelete.TabIndex = 5;
+			this.buttonDelete.Text = "Delete Task";
+			this.buttonDelete.UseVisualStyleBackColor = true;
+			this.buttonDelete.Visible = false;
+			this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
 			// 
 			// TaskListTracker
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(401, 382);
+			this.Controls.Add(this.buttonDelete);
 			this.Controls.Add(this.changeTimeLabel);
 			this.Controls.Add(this.buttonSave);
 			this.Controls.Add(this.buttonCheckOut);
@@ -118,6 +132,7 @@
 		private System.Windows.Forms.Button buttonCheckOut;
 		private System.Windows.Forms.Button buttonSave;
 		private System.Windows.Forms.Label changeTimeLabel;
+		private System.Windows.Forms.Button buttonDelete;
 
 	}
 }
