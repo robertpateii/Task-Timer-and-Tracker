@@ -439,5 +439,11 @@ namespace TaskTracker
 			addTimeLabels();
 			addChangeTimeBoxes();
 		}
+
+		private void linkLabelHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			Form aboutForm = new HaveDone.About();
+			aboutForm.Show();
+		}
 	}
 }

@@ -35,7 +35,7 @@
 			this.buttonCheckOut = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.buttonDelete = new System.Windows.Forms.Button();
-			this.textBoxHelp = new System.Windows.Forms.TextBox();
+			this.linkLabelHelp = new System.Windows.Forms.LinkLabel();
 			this.SuspendLayout();
 			// 
 			// timer1
@@ -95,31 +95,30 @@
 			this.buttonDelete.Visible = false;
 			this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
 			// 
-			// textBoxHelp
+			// linkLabelHelp
 			// 
-			this.textBoxHelp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.textBoxHelp.Enabled = false;
-			this.textBoxHelp.Location = new System.Drawing.Point(274, 239);
-			this.textBoxHelp.Multiline = true;
-			this.textBoxHelp.Name = "textBoxHelp";
-			this.textBoxHelp.Size = new System.Drawing.Size(112, 84);
-			this.textBoxHelp.TabIndex = 6;
-			this.textBoxHelp.Text = "  Click a time to make changes or delete the task. \r\n  It will accept positive an" +
-    "d negative amounts of minutes.";
+			this.linkLabelHelp.AutoSize = true;
+			this.linkLabelHelp.Location = new System.Drawing.Point(295, 330);
+			this.linkLabelHelp.Name = "linkLabelHelp";
+			this.linkLabelHelp.Size = new System.Drawing.Size(81, 13);
+			this.linkLabelHelp.TabIndex = 7;
+			this.linkLabelHelp.TabStop = true;
+			this.linkLabelHelp.Text = "Help and About";
+			this.linkLabelHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHelp_LinkClicked);
 			// 
 			// TaskListTracker
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(401, 330);
-			this.Controls.Add(this.textBoxHelp);
+			this.ClientSize = new System.Drawing.Size(401, 350);
+			this.Controls.Add(this.linkLabelHelp);
 			this.Controls.Add(this.buttonDelete);
 			this.Controls.Add(this.buttonSave);
 			this.Controls.Add(this.buttonCheckOut);
 			this.Controls.Add(this.buttonAddTask);
 			this.Controls.Add(this.groupBoxTasks);
 			this.MaximizeBox = false;
-			this.Name = "HaveDone Task Tracker";
+			this.Name = "TaskListTracker";
 			this.Text = "HaveDone Task Tracker";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TaskListTracker_FormClosing);
 			this.ResumeLayout(false);
@@ -135,7 +134,7 @@
 		private System.Windows.Forms.Button buttonCheckOut;
 		private System.Windows.Forms.Button buttonSave;
 		private System.Windows.Forms.Button buttonDelete;
-		private System.Windows.Forms.TextBox textBoxHelp;
+		private System.Windows.Forms.LinkLabel linkLabelHelp;
 
 	}
 }

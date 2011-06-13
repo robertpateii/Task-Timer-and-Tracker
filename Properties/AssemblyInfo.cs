@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TaskTracker")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("HaveDone")]
+[assembly: AssemblyDescription("Click a time to make changes or delete the task. \r\n\r\nIt will accept positivie and negative amounts of minutes. \r\n\r\nCustom icons from http://blog.twg.ca/2010/11/retina-display-icon-set/")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TaskTracker")]
+[assembly: AssemblyCompany("http://www.robertpate.net")]
+[assembly: AssemblyProduct("HaveDone Task Tracker")]
 [assembly: AssemblyCopyright("Copyright ©  2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
