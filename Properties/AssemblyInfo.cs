@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HaveDone")]
-[assembly: AssemblyDescription("Click a time to make changes or delete the task. \r\n\r\nIt will accept positivie and negative amounts of minutes. \r\n\r\nCustom icons from http://blog.twg.ca/2010/11/retina-display-icon-set/")]
+[assembly: AssemblyDescription("Click a time to make changes or delete the task. It will accept positivie and negative amounts of minutes.\r\n\r\nSource code is available at https://github.com/robertpateii/Task-Timer-and-Tracker\r\n\r\nCustom icon from http://blog.twg.ca/2010/11/retina-display-icon-set/\r\n\r\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.\r\n\r\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\r\n\r\nYou should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.\r\n\r\n")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://www.robertpate.net")]
 [assembly: AssemblyProduct("HaveDone Task Tracker")]
-[assembly: AssemblyCopyright("Copyright ©  2011")]
+[assembly: AssemblyCopyright("Copyright ©  2011 by Robert Pate II")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

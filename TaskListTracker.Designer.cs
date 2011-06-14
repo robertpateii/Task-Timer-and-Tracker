@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskListTracker));
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.buttonAddTask = new System.Windows.Forms.Button();
 			this.groupBoxTasks = new System.Windows.Forms.GroupBox();
@@ -50,7 +51,7 @@
 			this.buttonAddTask.Name = "buttonAddTask";
 			this.buttonAddTask.Size = new System.Drawing.Size(112, 38);
 			this.buttonAddTask.TabIndex = 0;
-			this.buttonAddTask.Text = "MOAR";
+			this.buttonAddTask.Text = "Add New Task";
 			this.buttonAddTask.UseVisualStyleBackColor = true;
 			this.buttonAddTask.Click += new System.EventHandler(this.buttonAddTask_Click);
 			// 
@@ -117,6 +118,7 @@
 			this.Controls.Add(this.buttonCheckOut);
 			this.Controls.Add(this.buttonAddTask);
 			this.Controls.Add(this.groupBoxTasks);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "TaskListTracker";
 			this.Text = "HaveDone Task Tracker";
