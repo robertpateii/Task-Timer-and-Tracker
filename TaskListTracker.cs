@@ -111,6 +111,7 @@ namespace TaskTracker
 				thisLabel.Hide();
 				// get the index of the sender and unhide the changeTimeBox of the same index. 
 				int senderIndex = myTimeLabels.IndexOf(thisLabel);
+				myChangeTimeBoxes[senderIndex].Clear();
 				myChangeTimeBoxes[senderIndex].Show();
 				myChangeTimeBoxes[senderIndex].Focus();
 				// Also show the save & delete button. just have 1 save button not per task.
@@ -444,6 +445,33 @@ namespace TaskTracker
 		{
 			Form aboutForm = new HaveDone.About();
 			aboutForm.Show();
+		}
+
+		private void progressBar1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void breakTimer_Tick(object sender, EventArgs e)
+		{
+			// Timer is set to tick every minute (60,000 milliseconds).
+			// Increment bar for each minute.
+			if (breakTimerProgressBar.Value >= breakTimerProgressBar.Maximum)
+			{
+				breakTimerProgressBar.Value = 0;
+				breakTimer.Stop();
+				MessageBox.Show("An hour has passed since your last break. Take one now. Click OK on your return to restart the timer.");
+				breakTimer.Start();
+			}
+			else
+			{
+				breakTimerProgressBar.Value++;
+			}
+		}
+
+		private void breakTimerResetLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			breakTimerProgressBar.Value = 0;
 		}
 	}
 }

@@ -37,6 +37,10 @@
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.buttonDelete = new System.Windows.Forms.Button();
 			this.linkLabelHelp = new System.Windows.Forms.LinkLabel();
+			this.breakTimer = new System.Windows.Forms.Timer(this.components);
+			this.breakTimerProgressBar = new System.Windows.Forms.ProgressBar();
+			this.breakTimerLabel = new System.Windows.Forms.Label();
+			this.breakTimerResetLabel = new System.Windows.Forms.LinkLabel();
 			this.SuspendLayout();
 			// 
 			// timer1
@@ -107,11 +111,49 @@
 			this.linkLabelHelp.Text = "Help and About";
 			this.linkLabelHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHelp_LinkClicked);
 			// 
+			// breakTimer
+			// 
+			this.breakTimer.Enabled = true;
+			this.breakTimer.Interval = 60000;
+			this.breakTimer.Tick += new System.EventHandler(this.breakTimer_Tick);
+			// 
+			// breakTimerProgressBar
+			// 
+			this.breakTimerProgressBar.Location = new System.Drawing.Point(286, 300);
+			this.breakTimerProgressBar.Maximum = 60;
+			this.breakTimerProgressBar.Name = "breakTimerProgressBar";
+			this.breakTimerProgressBar.Size = new System.Drawing.Size(100, 23);
+			this.breakTimerProgressBar.TabIndex = 8;
+			this.breakTimerProgressBar.Click += new System.EventHandler(this.progressBar1_Click);
+			// 
+			// breakTimerLabel
+			// 
+			this.breakTimerLabel.AutoSize = true;
+			this.breakTimerLabel.Location = new System.Drawing.Point(286, 281);
+			this.breakTimerLabel.Name = "breakTimerLabel";
+			this.breakTimerLabel.Size = new System.Drawing.Size(70, 13);
+			this.breakTimerLabel.TabIndex = 9;
+			this.breakTimerLabel.Text = "Break Timer -";
+			// 
+			// breakTimerResetLabel
+			// 
+			this.breakTimerResetLabel.AutoSize = true;
+			this.breakTimerResetLabel.Location = new System.Drawing.Point(354, 281);
+			this.breakTimerResetLabel.Name = "breakTimerResetLabel";
+			this.breakTimerResetLabel.Size = new System.Drawing.Size(35, 13);
+			this.breakTimerResetLabel.TabIndex = 10;
+			this.breakTimerResetLabel.TabStop = true;
+			this.breakTimerResetLabel.Text = "Reset";
+			this.breakTimerResetLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.breakTimerResetLabel_LinkClicked);
+			// 
 			// TaskListTracker
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(401, 350);
+			this.Controls.Add(this.breakTimerResetLabel);
+			this.Controls.Add(this.breakTimerLabel);
+			this.Controls.Add(this.breakTimerProgressBar);
 			this.Controls.Add(this.linkLabelHelp);
 			this.Controls.Add(this.buttonDelete);
 			this.Controls.Add(this.buttonSave);
@@ -137,6 +179,10 @@
 		private System.Windows.Forms.Button buttonSave;
 		private System.Windows.Forms.Button buttonDelete;
 		private System.Windows.Forms.LinkLabel linkLabelHelp;
+		private System.Windows.Forms.Timer breakTimer;
+		private System.Windows.Forms.ProgressBar breakTimerProgressBar;
+		private System.Windows.Forms.Label breakTimerLabel;
+		private System.Windows.Forms.LinkLabel breakTimerResetLabel;
 
 	}
 }
