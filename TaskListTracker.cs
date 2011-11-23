@@ -460,8 +460,10 @@ namespace TaskTracker
 			{
 				breakTimerProgressBar.Value = 0;
 				breakTimer.Stop();
-				MessageBox.Show("An hour has passed since your last break. Take one now. Click OK on your return to restart the timer.");
+				timer1.Stop();
+				MessageBox.Show("An hour has passed since your last break. Take one now.\r\nClick OK on your return to restart the timers.", "Break \\ Stretch Time");
 				breakTimer.Start();
+				timer1.Start();
 			}
 			else
 			{
