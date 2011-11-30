@@ -16,6 +16,13 @@ namespace TaskTracker
 		List<Task> myTasks = new List<Task> { };
 		const string saveTimeFile = "TaskListTracker.dat";
 		const string formTitle = "HaveDone Task Tracker"; // if you change this you also need to change it in the form designer.
+        const string checkInString = "Check In";
+        const string inProgressString = "In Progress";
+        const string errorEditingTwoTimes = "You can only edit one time at a time.";
+        const string titleBreakReady = "Take a break!";
+        const string messageBreakReady = "An hour has passed since your last break.\r\nClick OK to start your break.";
+        const string titleBreakRunning = "On Break";
+        const string messageBreakRunning = "Task timer paused. Click OK when you are back and resume work.";
 		List<TextBox> myTextBoxes = new List<TextBox> { };
 		List<RadioButton> myRadioButtons = new List<RadioButton> { };
 		List<Label> myTimeLabels = new List<Label> { };
@@ -72,11 +79,11 @@ namespace TaskTracker
 			// Set all the radio button's text to "Check In"
 			foreach (RadioButton aRadioButton in myRadioButtons)
 			{
-				aRadioButton.Text = "Check In";
+				aRadioButton.Text = checkInString;
 			}
 
 			// Set the newly checked one to "In Progress"
-			myRadioButtons[taskIndex].Text = "In Progress";
+			myRadioButtons[taskIndex].Text = inProgressString;
 
 			// If the newly checked radio button isn't already checked, check it
 			if (myRadioButtons[taskIndex].Checked == false)
@@ -100,7 +107,7 @@ namespace TaskTracker
 			// if a change time text box is already visible, do nothing. 
 			if (buttonSave.Visible == true)
 			{
-				MessageBox.Show("You can only edit one time at a time.");
+				MessageBox.Show(errorEditingTwoTimes);
 			}
 
 			else
@@ -138,7 +145,7 @@ namespace TaskTracker
 			aRadio.Click += new EventHandler(aRadio_Click);
 			myRadioButtons.Add(aRadio);
 			aRadio.Width = 85;
-			aRadio.Text = "Check In";
+			aRadio.Text = checkInString;
 			if (aTask.IsChecked)
 			{
 				checkInTask(aTask);
@@ -459,9 +466,10 @@ namespace TaskTracker
 			if (breakTimerProgressBar.Value >= breakTimerProgressBar.Maximum)
 			{
 				breakTimerProgressBar.Value = 0;
-				breakTimer.Stop();
-				timer1.Stop();
-				MessageBox.Show("An hour has passed since your last break. Take one now.\r\nClick OK on your return to restart the timers.", "Break \\ Stretch Time");
+                breakTimer.Stop();
+                MessageBox.Show(messageBreakReady, titleBreakReady);
+                timer1.Stop();
+                MessageBox.Show(messageBreakRunning, titleBreakRunning);
 				breakTimer.Start();
 				timer1.Start();
 			}
@@ -475,5 +483,5 @@ namespace TaskTracker
 		{
 			breakTimerProgressBar.Value = 0;
 		}
-	}
+    }
 }
