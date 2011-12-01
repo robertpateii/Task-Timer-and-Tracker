@@ -23,6 +23,9 @@ namespace TaskTracker
         const string messageBreakReady = "An hour has passed since your last break.\r\nClick OK to start your break.";
         const string titleBreakRunning = "On Break";
         const string messageBreakRunning = "Task timer paused. Click OK when you are back and resume work.";
+        const int timeLabelWidth = 35;
+        const int radioWidth = 85;
+        const int changeTimeBoxWidth = 25;
 		List<TextBox> myTextBoxes = new List<TextBox> { };
 		List<RadioButton> myRadioButtons = new List<RadioButton> { };
 		List<Label> myTimeLabels = new List<Label> { };
@@ -144,7 +147,7 @@ namespace TaskTracker
 			RadioButton aRadio = new RadioButton();
 			aRadio.Click += new EventHandler(aRadio_Click);
 			myRadioButtons.Add(aRadio);
-			aRadio.Width = 85;
+			aRadio.Width = radioWidth;
 			aRadio.Text = checkInString;
 			if (aTask.IsChecked)
 			{
@@ -155,18 +158,19 @@ namespace TaskTracker
 			Label aTimeLabel = new Label();
 			aTimeLabel.Text = aTask.TimeString;
 			aTimeLabel.Click += new EventHandler(aTimeLabel_Click);
-			aTimeLabel.Width = 35;
+			aTimeLabel.Width = timeLabelWidth;
 			myTimeLabels.Add(aTimeLabel);
 
 			// Create the change time text box and set its properties
 			TextBox changeTimeBox = new TextBox();
-			changeTimeBox.Width = 25;
+			changeTimeBox.Width = changeTimeBoxWidth;
 			myChangeTimeBoxes.Add(changeTimeBox);
 		}
 
 		private void addTextBoxes()
 		{
 			// Set starting position for the text boxes
+            // Find top and left of the group box and make these relative to it.
 			int x = 7;
 			int y = 20;
 
@@ -183,6 +187,7 @@ namespace TaskTracker
 		private void addRadioButtons()
 		{
 			// Set Starting position
+            // find the position of the text boxes and set this relative to it.
 			int x = 117;
 			int y = 18;
 
@@ -198,6 +203,7 @@ namespace TaskTracker
 		private void addTimeLabels()
 		{
 			// Starting Pos
+            // Find position of radio buttons and set this relative to it
 			int x = 208;
 			int y = 23;
 
