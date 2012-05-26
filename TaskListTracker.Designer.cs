@@ -120,10 +120,11 @@
 			// breakTimerProgressBar
 			// 
 			this.breakTimerProgressBar.Location = new System.Drawing.Point(286, 300);
-			this.breakTimerProgressBar.Maximum = 60;
+			this.breakTimerProgressBar.Maximum = 50;
 			this.breakTimerProgressBar.Name = "breakTimerProgressBar";
 			this.breakTimerProgressBar.Size = new System.Drawing.Size(100, 23);
 			this.breakTimerProgressBar.TabIndex = 8;
+			this.breakTimerProgressBar.Value = 0;
 			this.breakTimerProgressBar.Click += new System.EventHandler(this.progressBar1_Click);
 			// 
 			// breakTimerLabel

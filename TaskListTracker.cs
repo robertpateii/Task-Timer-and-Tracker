@@ -20,7 +20,7 @@ namespace TaskTracker
         const string inProgressString = "In Progress";
         const string errorEditingTwoTimes = "You can only edit one time at a time.";
         const string titleBreakReady = "Take a break!";
-        const string messageBreakReady = "An hour has passed since your last break.\r\nClick OK to start your break.";
+        const string messageBreakReady = "50 minutes has passed since your last break.\r\nClick OK to start your break.";
         const string titleBreakRunning = "On Break";
         const string messageBreakRunning = "Task timer paused. Click OK when you are back and resume work.";
         const int timeLabelWidth = 35;
@@ -379,9 +379,14 @@ namespace TaskTracker
 				if (aTimeBox.Visible == true)
 				{
 					int changeTimeValueInMinutes = 0;
+
 					// Convert the change time value into a time span.
 					try
 					{
+						if (aTimeBox.Text == "")
+						{
+							aTimeBox.Text = "0";
+						}
 						changeTimeValueInMinutes = int.Parse(aTimeBox.Text);
 					}
 					catch (Exception ex)
@@ -471,11 +476,12 @@ namespace TaskTracker
 			// Increment bar for each minute.
 			if (breakTimerProgressBar.Value >= breakTimerProgressBar.Maximum)
 			{
-				breakTimerProgressBar.Value = 0;
-                breakTimer.Stop();
-                MessageBox.Show(messageBreakReady, titleBreakReady);
-                timer1.Stop();
-                MessageBox.Show(messageBreakRunning, titleBreakRunning);
+				breakTimerProgressBar.Value = breakTimerProgressBar.Minimum;
+				breakTimer.Stop();
+				this.Activate();
+				MessageBox.Show(messageBreakReady, titleBreakReady); // Click OK to start your break
+				timer1.Stop(); // Stop the task timer *after* the user accepts the break.
+				MessageBox.Show(messageBreakRunning, titleBreakRunning); // Click OK to end your break
 				breakTimer.Start();
 				timer1.Start();
 			}
