@@ -126,6 +126,7 @@ namespace TaskTracker
 				myChangeTimeBoxes[senderIndex].Focus();
 				// Also show the save & delete button. just have 1 save button not per task.
 				buttonSave.Show();
+				this.AcceptButton = buttonSave;
 				buttonDelete.Show();
 				buttonAddTask.Enabled = false;
 				buttonCheckOut.Enabled = false;
