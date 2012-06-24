@@ -320,6 +320,9 @@ namespace TaskTracker
 		{
 			int taskIndex = myTasks.IndexOf(aTask);
 			myTimeLabels[taskIndex].Text = aTask.TimeString;
+
+			// Updates the title of the form in case you've changed the text of a task without checking in again
+			this.Text = myTextBoxes[taskIndex].Text;
 		}
 
 		private void buttonAddTask_Click(object sender, EventArgs e)
