@@ -6,11 +6,12 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace HaveDone
+namespace TaskTracker
 {
 	partial class About : Form
 	{
-		public About()
+        private TaskListTracker taskListParent;
+		public About(TaskListTracker parent)
 		{
 			InitializeComponent();
 			this.Text = String.Format("About {0}", AssemblyTitle);
@@ -19,7 +20,17 @@ namespace HaveDone
 			this.labelCopyright.Text = AssemblyCopyright;
 			this.labelCompanyName.Text = AssemblyCompany;
 			this.textBoxDescription.Text = AssemblyDescription;
+            this.taskListParent = parent;
+            setOptions();
 		}
+
+        private void setOptions()
+        {
+            if (taskListParent.OptionsList[TaskListTracker.OptionKeys.BreakTimerEnabled] == TaskListTracker.OptionValues.False)
+            {
+                enableTimer.Checked = false;
+            }
+        }
 
 		#region Assembly Attribute Accessors
 
@@ -104,6 +115,19 @@ namespace HaveDone
 		private void okButton_Click(object sender, EventArgs e)
 		{
 			this.Close();
-		}
+        }
+
+        private void enableTimer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (enableTimer.Checked)
+            {
+                taskListParent.BreakTimerOn();
+            }
+            // If not checked, must be off. So turn on.
+            else
+            {
+                taskListParent.BreakTimerOff();
+            }
+        }
 	}
 }

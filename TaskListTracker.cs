@@ -30,6 +30,15 @@ namespace TaskTracker
 		List<RadioButton> myRadioButtons = new List<RadioButton> { };
 		List<Label> myTimeLabels = new List<Label> { };
 		List<TextBox> myChangeTimeBoxes = new List<TextBox> { };
+        internal Dictionary<OptionKeys, OptionValues> OptionsList = new Dictionary<OptionKeys,OptionValues>();
+        internal enum OptionKeys
+        {
+            BreakTimerEnabled
+        }
+        internal enum OptionValues {
+            True, False
+        }
+
 
 		public TaskListTracker()
 		{
@@ -38,6 +47,30 @@ namespace TaskTracker
 			loadFromFile();
 			loadFormControls();
 		}
+
+        internal bool BreakTimerOff() 
+        {
+            bool success = false;
+            breakTimer.Stop();
+            if (breakTimer.Enabled == false)
+            {
+                OptionsList[OptionKeys.BreakTimerEnabled] = OptionValues.False;
+                success = true;
+            }
+            return success;
+        }
+
+        internal bool BreakTimerOn()
+        {
+            bool success = false;
+            breakTimer.Start();
+            if (breakTimer.Enabled)
+            {
+                OptionsList[OptionKeys.BreakTimerEnabled] = OptionValues.True;
+                success = true;
+            }
+            return success;
+        }
 
 		private void loadFormControls()
 		{
@@ -258,6 +291,27 @@ namespace TaskTracker
 			{
 				createBlankTasks();
 			}
+
+            if (File.Exists("TaskListTrackerOptions.dat"))
+            {
+                try
+                {
+                    using (Stream inputstream = File.OpenRead("TaskListTrackerOptions.dat"))
+                    {
+                        BinaryFormatter myFormatter = new BinaryFormatter();
+                        OptionsList = (Dictionary<OptionKeys, OptionValues>)myFormatter.Deserialize(inputstream);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                OptionsList.Add(OptionKeys.BreakTimerEnabled, OptionValues.True);
+            }
 		}
 
 		private void createBlankTasks()
@@ -288,6 +342,11 @@ namespace TaskTracker
 			{
 				BinaryFormatter formatter = new BinaryFormatter();
 				formatter.Serialize(output, myTasks);
+			}
+			using (Stream output = File.Create("TaskListTrackerOptions.dat"))
+			{
+				BinaryFormatter formatter = new BinaryFormatter();
+				formatter.Serialize(output, OptionsList);
 			}
 		}
 
@@ -465,7 +524,7 @@ namespace TaskTracker
 
 		private void linkLabelHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Form aboutForm = new HaveDone.About();
+			Form aboutForm = new TaskTracker.About(this);
 			aboutForm.Show();
 		}
 
