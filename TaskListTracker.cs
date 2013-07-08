@@ -307,10 +307,24 @@ namespace TaskTracker
                 {
                     MessageBox.Show(ex.Message);
                 }
+
+                // Make the options take effect.
+                if (OptionsList[OptionKeys.BreakTimerEnabled] == OptionValues.False)
+                {
+                    breakTimer.Enabled = false;
+                }
+                else
+                {
+                    breakTimer.Enabled = true;
+                }
+
+
             }
             else
             {
+                // No options file found. Set the default options and make them take effect.
                 OptionsList.Add(OptionKeys.BreakTimerEnabled, OptionValues.True);
+                breakTimer.Enabled = true;
             }
 		}
 

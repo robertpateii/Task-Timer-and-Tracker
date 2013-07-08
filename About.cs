@@ -123,7 +123,6 @@ namespace TaskTracker
             {
                 taskListParent.BreakTimerOn();
             }
-            // If not checked, must be off. So turn on.
             else
             {
                 taskListParent.BreakTimerOff();
