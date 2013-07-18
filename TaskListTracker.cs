@@ -39,7 +39,6 @@ namespace TaskTracker
             True, False
         }
 
-
 		public TaskListTracker()
 		{
 			InitializeComponent();
@@ -385,7 +384,26 @@ namespace TaskTracker
 					updateTimes(aTask);
 				}
 			}
+
+            updateTotalTime();
 		}
+
+        private void updateTotalTime()
+        {
+            TimeSpan totalTime = new TimeSpan();
+            string timeString = "";
+
+            foreach (Task aTask in myTasks)
+            {
+                totalTime = totalTime.Add(aTask.Time);
+            }
+
+            timeString += totalTime.Hours.ToString();
+            timeString += ":";
+            timeString += totalTime.Minutes.ToString();
+
+            TotalTimeLabel.Text = timeString;
+        }
 
 		// Update the time of the checked task or all the tasks if you have to. 
 		// It will run whenever the timer tick updates a task's time.

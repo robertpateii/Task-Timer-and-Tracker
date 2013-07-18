@@ -41,6 +41,8 @@
             this.breakTimerProgressBar = new System.Windows.Forms.ProgressBar();
             this.breakTimerLabel = new System.Windows.Forms.Label();
             this.breakTimerResetLabel = new System.Windows.Forms.LinkLabel();
+            this.TotalTextLabel = new System.Windows.Forms.Label();
+            this.TotalTimeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timer1
@@ -146,11 +148,31 @@
             this.breakTimerResetLabel.Text = "Reset";
             this.breakTimerResetLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.breakTimerResetLabel_LinkClicked);
             // 
+            // TotalTextLabel
+            // 
+            this.TotalTextLabel.AutoSize = true;
+            this.TotalTextLabel.Location = new System.Drawing.Point(271, 12);
+            this.TotalTextLabel.Name = "TotalTextLabel";
+            this.TotalTextLabel.Size = new System.Drawing.Size(60, 13);
+            this.TotalTextLabel.TabIndex = 11;
+            this.TotalTextLabel.Text = "Total Time:";
+            // 
+            // TotalTimeLabel
+            // 
+            this.TotalTimeLabel.AutoSize = true;
+            this.TotalTimeLabel.Location = new System.Drawing.Point(337, 12);
+            this.TotalTimeLabel.Name = "TotalTimeLabel";
+            this.TotalTimeLabel.Size = new System.Drawing.Size(22, 13);
+            this.TotalTimeLabel.TabIndex = 12;
+            this.TotalTimeLabel.Text = "0:0";
+            // 
             // TaskListTracker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(401, 350);
+            this.Controls.Add(this.TotalTimeLabel);
+            this.Controls.Add(this.TotalTextLabel);
             this.Controls.Add(this.breakTimerResetLabel);
             this.Controls.Add(this.breakTimerLabel);
             this.Controls.Add(this.breakTimerProgressBar);
@@ -183,6 +205,8 @@
 		private System.Windows.Forms.ProgressBar breakTimerProgressBar;
 		private System.Windows.Forms.Label breakTimerLabel;
 		private System.Windows.Forms.LinkLabel breakTimerResetLabel;
+        private System.Windows.Forms.Label TotalTextLabel;
+        private System.Windows.Forms.Label TotalTimeLabel;
 
 	}
 }
